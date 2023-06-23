@@ -2,4 +2,7 @@
 plugins {
     id("com.android.application") version "8.1.0-beta05" apply false
     id("org.jetbrains.kotlin.android") version "1.8.10" apply false
+    id("com.diffplug.spotless") version "6.19.0"
 }
+
+apply(from = "${project.rootDir}/spotless.gradle")

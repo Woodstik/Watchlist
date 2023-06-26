@@ -6,3 +6,9 @@ plugins {
 }
 
 apply(from = "${project.rootDir}/spotless.gradle")
+
+tasks.register("updateGitHooks", Copy::class.java) {
+    from("./scripts/pre-commit")
+    into("./.git/hooks")
+}
+tasks.withType<JavaCompile> { dependsOn("updateGitHooks") }

@@ -7,8 +7,6 @@ plugins {
     id("com.diffplug.spotless") version "6.19.0"
 }
 
-apply(from = "${project.rootDir}/spotless.gradle")
-
 task("installGitHooks", Copy::class) {
     from("./scripts/pre-commit")
     into("./.git/hooks")
@@ -17,4 +15,5 @@ task("installGitHooks", Copy::class) {
 
 tasks.build.dependsOn("installGitHooks")
 
+apply(from = "${project.rootDir}/spotless.gradle")
 

@@ -13,6 +13,7 @@ task("installGitHooks") {
     copy {
         from("./scripts/pre-commit")
         into("./.git/hooks")
+        fileMode = 700
     }
 }
 

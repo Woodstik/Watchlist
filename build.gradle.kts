@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.tasks.factory.dependsOn
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     id("com.android.application") version "8.1.0-beta05" apply false
@@ -7,8 +9,13 @@ plugins {
 
 apply(from = "${project.rootDir}/spotless.gradle")
 
-tasks.register("updateGitHooks", Copy::class.java) {
-    from("./scripts/pre-commit")
-    into("./.git/hooks")
+task("installGitHooks") {
+    copy {
+        from("./scripts/pre-commit")
+        into("./.git/hooks")
+    }
 }
-tasks.withType<JavaCompile> { dependsOn("updateGitHooks") }
+
+tasks.build.dependsOn("installGitHooks")
+
+

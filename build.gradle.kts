@@ -10,10 +10,11 @@ plugins {
 apply(from = "${project.rootDir}/spotless.gradle")
 
 task("installGitHooks") {
+    delete("./.git/hooks/pre-commit")
     copy {
         from("./scripts/pre-commit")
         into("./.git/hooks")
-        fileMode = 700
+        fileMode = 777
     }
 }
 

@@ -1,10 +1,10 @@
 # Name of your workflow
-name: Android Run Tests
+name: Run Tests on Push
 # Define on which Github event, workflow will trigger
 on: [push]
 jobs:
   build:
-    name: Run Android Tests
+    name: Run Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code to specific branch

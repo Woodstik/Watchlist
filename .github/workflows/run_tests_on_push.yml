@@ -1,0 +1,24 @@
+# Name of your workflow
+name: Android Run Tests
+# Define on which Github event, workflow will trigger
+on: [push]
+jobs:
+  build:
+    name: Run Android Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code to specific branch
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.branch }}
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: '17'
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+      - name: Run Tests
+        run: ./gradlew test

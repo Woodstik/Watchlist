@@ -1,12 +1,34 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
 }
 
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+val keystoreProperties = Properties()
+keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+
 android {
     namespace = "com.example.watchlist"
     compileSdk = 33
+
+    signingConfigs {
+        create("staging") {
+            storeFile = file(keystoreProperties["stagingStoreFile"] as String)
+            storePassword = keystoreProperties["stagingStorePassword"] as String
+            keyAlias = keystoreProperties["stagingKeyAlias"] as String
+            keyPassword = keystoreProperties["stagingKeyPassword"] as String
+        }
+        create("release") {
+            storeFile = file(keystoreProperties["releaseStoreFile"] as String)
+            storePassword = keystoreProperties["releaseStorePassword"] as String
+            keyAlias = keystoreProperties["releaseKeyAlias"] as String
+            keyPassword = keystoreProperties["releaseKeyPassword"] as String
+        }
+    }
 
     defaultConfig {
         applicationId = "com.example.watchlist"
@@ -32,10 +54,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = android.signingConfigs["release"]
         }
         create("staging") {
             initWith(getByName("release"))
             applicationIdSuffix = ".staging"
+            signingConfig = signingConfigs["staging"]
         }
     }
 

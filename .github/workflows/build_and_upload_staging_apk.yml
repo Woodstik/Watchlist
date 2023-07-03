@@ -4,7 +4,7 @@ on:
     workflows: [ run-tests ]
     branches:
       - develop
-      - feature/*
+      - 'feature/**'
     types:
       - completed
 jobs:

@@ -1,0 +1,13 @@
+# Name of your workflow
+name: Run Tests on Push
+# Define on which Github event, workflow will trigger
+on: [push]
+jobs:
+  call-setup:
+    uses: ./.github/workflows/setup.yml
+  run-tests:
+    needs: call-setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Tests
+        run: ./gradlew test

@@ -16,6 +16,11 @@ jobs:
           ENCODED_STRING: ${{ secrets.KEYSTORE_PROPERTIES }}
         run:
           echo $ENCODED_STRING | base64 -di > "${GITHUB_WORKSPACE}"/keystore.properties
+      - name: Add google-services.json
+        env:
+          GOOGLE_SERVICES_STRING: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run:
+          $GOOGLE_SERVICES_STRING > "${GITHUB_WORKSPACE}"/app/google-services.json
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:

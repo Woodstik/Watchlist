@@ -13,9 +13,9 @@ jobs:
           ref: ${{ github.event.inputs.branch }}
       - name: Decode Keystore Properties
         env:
-          ENCODED_STRING: ${{ secrets.KEYSTORE_PROPERTIES }}
+          KEYSTORE_PROPERTIES_STRING: ${{ secrets.KEYSTORE_PROPERTIES }}
         run:
-          echo $ENCODED_STRING | base64 -di > "${GITHUB_WORKSPACE}"/keystore.properties
+          echo KEYSTORE_PROPERTIES_STRING > "${GITHUB_WORKSPACE}"/keystore.properties
       - name: Add google-services.json
         env:
           GOOGLE_SERVICES_STRING: ${{ secrets.GOOGLE_SERVICES_JSON }}

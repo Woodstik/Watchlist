@@ -20,7 +20,7 @@ jobs:
         env:
           GOOGLE_SERVICES_STRING: ${{ secrets.GOOGLE_SERVICES_JSON }}
         run:
-          $GOOGLE_SERVICES_STRING > "${GITHUB_WORKSPACE}"/app/google-services.json
+          echo $GOOGLE_SERVICES_STRING > "${GITHUB_WORKSPACE}"/app/google-services.json
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:

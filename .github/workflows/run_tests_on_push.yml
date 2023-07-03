@@ -7,6 +7,11 @@ jobs:
     name: Run Tests
     runs-on: ubuntu-latest
     steps:
+      - name: Decode Keystore Properties
+        env:
+          ENCODED_STRING: ${{ secrets.KEYSTORE_PROPERTIES }}
+        run:
+          echo $ENCODED_STRING | base64 -di > "${RUNNER_TEMP}"/keystore.properties
       - name: Checkout the code to specific branch
         uses: actions/checkout@v2
         with:

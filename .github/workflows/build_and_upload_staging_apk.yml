@@ -2,6 +2,7 @@ name: Android Build and Deployment Pipeline for Staging
 on:
   workflow_run:
     workflows: [ "Run Tests on Push" ]
+    branches: [ develop ]
     types:
       - completed
 jobs:
@@ -47,8 +48,8 @@ jobs:
         with:
           name: Build Artifacts
           path: app/build/outputs/
-    on-failure:
-      runs-on: ubuntu-latest
-      if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-      steps:
-        - run: echo 'The triggering workflow failed'
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - run: echo 'The triggering workflow failed'

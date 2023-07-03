@@ -11,22 +11,22 @@ jobs:
     name: Build and Deploy
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout the code to specific branch
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.inputs.branch }}
       - name: Decode Keystore
         env:
           ENCODED_STRING: ${{ secrets.STAGING_KEYSTORE }}
         run:
-          TMP_KEYSTORE_FILE_PATH="${RUNNER_TEMP}"/keystore
+          TMP_KEYSTORE_FILE_PATH="${GITHUB_WORKSPACE}"/keystore
           mkdir "${TMP_KEYSTORE_FILE_PATH}"
           echo $ENCODED_STRING | base64 -di > "${TMP_KEYSTORE_FILE_PATH}"/staging.jks
       - name: Decode Keystore Properties
         env:
           ENCODED_STRING: ${{ secrets.KEYSTORE_PROPERTIES }}
         run:
-          echo $ENCODED_STRING | base64 -di > "${RUNNER_TEMP}"/keystore.properties
-      - name: Checkout the code to specific branch
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.inputs.branch }}
+          echo $ENCODED_STRING | base64 -di > "${GITHUB_WORKSPACE}"/keystore.properties
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:

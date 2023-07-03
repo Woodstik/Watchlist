@@ -1,7 +1,7 @@
 name: Android Build and Deployment Pipeline for Staging
 on:
   workflow_run:
-    workflows: [ run-tests ]
+    workflows: [ "Run Tests on Push" ]
     branches:
       - develop
       - 'feature/**'

@@ -8,9 +8,6 @@ jobs:
   run-tests:
     needs: call-setup
     runs-on: ubuntu-latest
-    env:
-      working-directory: ${GITHUB_WORKSPACE}
     steps:
       - name: Run Tests
         run: ./gradlew test
-        working-directory: ${{env.working-directory}}

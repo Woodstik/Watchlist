@@ -20,7 +20,7 @@ jobs:
         run: |
           TMP_KEYSTORE_FILE_PATH="${GITHUB_WORKSPACE}"/keystore
           mkdir "${TMP_KEYSTORE_FILE_PATH}"
-          echo $ENCODED_STRING | base64 -di > "${TMP_KEYSTORE_FILE_PATH}"/staging.jks'
+          echo $ENCODED_STRING | base64 -di > "${TMP_KEYSTORE_FILE_PATH}"/staging.jks
       - name: Decode Release Keystore
         env:
           ENCODED_STRING: ${{ secrets.RELEASE_KEYSTORE }}

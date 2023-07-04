@@ -6,9 +6,6 @@ jobs:
   call-setup:
     uses: ./.github/workflows/setup.yml
   run-tests:
-    defaults:
-      run:
-        working-directory: "${GITHUB_WORKSPACE}"
     needs: call-setup
     runs-on: ubuntu-latest
     steps:

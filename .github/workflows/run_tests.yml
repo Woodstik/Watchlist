@@ -9,5 +9,9 @@ jobs:
     needs: call-setup
     runs-on: ubuntu-latest
     steps:
+      - name: Check pwd
+        run: pwd
+      - name: Check ls
+        run: ls
       - name: Run Tests
         run: ./gradlew test

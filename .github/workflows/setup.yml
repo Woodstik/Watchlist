@@ -14,7 +14,7 @@ jobs:
           KEYSTORE_PROPERTIES_STRING: ${{ secrets.KEYSTORE_PROPERTIES }}
         run: 'echo "$KEYSTORE_PROPERTIES_STRING" > "${GITHUB_WORKSPACE}"/keystore.properties'
       - name: Create Keystore Directory
-        run: 'mkdir "${GITHUB_WORKSPACE}"/keystore"'
+        run: 'mkdir "${GITHUB_WORKSPACE}"/keystore'
       - name: Decode Staging Keystore
         env:
           ENCODED_STRING: ${{ secrets.STAGING_KEYSTORE }}

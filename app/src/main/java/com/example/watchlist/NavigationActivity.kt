@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.watchlist.ui.auth.welcome.WelcomeScreen
+import com.example.watchlist.ui.auth.AUTH_GRAPH_ROUTE_PATTERN
+import com.example.watchlist.ui.auth.authGraph
 import com.example.watchlist.ui.theme.WatchlistTheme
 
 class NavigationActivity : ComponentActivity() {
@@ -18,9 +18,9 @@ class NavigationActivity : ComponentActivity() {
             WatchlistTheme {
                 NavHost(
                     navController = navController,
-                    startDestination = "welcome",
+                    startDestination = AUTH_GRAPH_ROUTE_PATTERN,
                 ) {
-                    composable("welcome") { WelcomeScreen() }
+                    authGraph(navController)
                 }
             }
         }

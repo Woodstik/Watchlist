@@ -11,4 +11,20 @@ class WelcomeViewModel @Inject constructor() : ViewModel() {
 
     private val _state = MutableLiveData(WelcomeScreenState())
     val state: LiveData<WelcomeScreenState> = _state
+
+    fun onEmailChange(newEmail: String) {
+        _state.value = _state.value!!.copy(
+            email = newEmail,
+            enabledContinue = newEmail.isNotEmpty(),
+        )
+    }
+
+    fun onClickContinueEmail() {
+    }
+
+    fun onClickContinueGoogle() {
+    }
+
+    fun onClickContinueFacebook() {
+    }
 }

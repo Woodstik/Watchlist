@@ -14,6 +14,10 @@ fun NavGraphBuilder.welcomeScreen() {
         val state by viewModel.state.observeAsState(WelcomeScreenState())
         WelcomeScreen(
             state = state,
+            onEmailChange = { viewModel.onEmailChange(it) },
+            onClickContinueEmail = { viewModel.onClickContinueEmail() },
+            onClickContinueGoogle = { viewModel.onClickContinueGoogle() },
+            onClickContinueFacebook = { viewModel.onClickContinueFacebook() },
         )
     }
 }

@@ -1,5 +1,6 @@
 package com.example.watchlist.ui.auth.welcome
 
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -7,7 +8,7 @@ import androidx.navigation.compose.composable
 const val ROUTE_WELCOME = "welcome"
 fun NavGraphBuilder.welcomeScreen() {
     composable(ROUTE_WELCOME) {
-        val viewModel = WelcomeViewModel()
+        val viewModel = hiltViewModel<WelcomeViewModel>()
         val state = viewModel.state
         WelcomeScreen()
     }

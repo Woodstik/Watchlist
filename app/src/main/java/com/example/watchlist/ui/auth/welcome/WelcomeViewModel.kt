@@ -1,5 +1,6 @@
 package com.example.watchlist.ui.auth.welcome
 
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,9 +14,11 @@ class WelcomeViewModel @Inject constructor() : ViewModel() {
     val state: LiveData<WelcomeScreenState> = _state
 
     fun onEmailChange(newEmail: String) {
+        val error = getEmailError(newEmail.trim())
         _state.value = _state.value!!.copy(
             email = newEmail,
-            enabledContinue = newEmail.isNotEmpty(),
+            emailError = error,
+            enabledContinue = newEmail.isNotEmpty() && error == EmailError.NONE,
         )
     }
 
@@ -26,5 +29,14 @@ class WelcomeViewModel @Inject constructor() : ViewModel() {
     }
 
     fun onClickContinueFacebook() {
+    }
+
+    // TODO: Change this to a use case
+    private fun getEmailError(email: String): EmailError {
+        var error = EmailError.NONE
+        if (email.isNotEmpty() && !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            error = EmailError.INVALID_EMAIL
+        }
+        return error
     }
 }

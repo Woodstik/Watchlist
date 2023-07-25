@@ -45,6 +45,7 @@ fun WelcomeScreen(
             WelcomeScreenInfo()
             EmailForm(
                 email = state.email,
+                emailError = state.emailError,
                 onEmailChange = { onEmailChange(it) },
                 onClickContinue = { onClickContinueEmail() },
                 enabledContinue = state.enabledContinue,
@@ -94,18 +95,23 @@ private fun WelcomeScreenInfo() {
 @Composable
 private fun EmailForm(
     email: String,
+    emailError: EmailError,
     onEmailChange: (String) -> Unit,
     onClickContinue: () -> Unit,
     enabledContinue: Boolean,
 ) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
     ) {
         OutlinedTextField(
             value = email,
+            label = { Text(stringResource(id = R.string.input_label_email)) },
             placeholder = { Text(stringResource(id = R.string.input_placeholder_email)) },
+            supportingText = { EmailErrorText(emailError) },
+            isError = emailError != EmailError.NONE,
             onValueChange = { onEmailChange(it) },
             modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
         )
         Button(
             onClick = onClickContinue,
@@ -138,6 +144,14 @@ private fun SocialButton(
             )
             Text(text, modifier = Modifier.align(Alignment.Center))
         }
+    }
+}
+
+@Composable
+private fun EmailErrorText(error: EmailError) {
+    when (error) {
+        EmailError.INVALID_EMAIL -> Text(stringResource(id = R.string.form_error_invalid_email))
+        EmailError.NONE -> Text("")
     }
 }
 

@@ -29,7 +29,13 @@ import com.example.watchlist.ui.theme.WatchlistTheme
 import com.example.watchlist.ui.theme.spacing
 
 @Composable
-fun WelcomeScreen() {
+fun WelcomeScreen(
+    state: WelcomeScreenState = WelcomeScreenState(),
+    onEmailChange: (String) -> Unit = {},
+    onClickContinueEmail: () -> Unit = {},
+    onClickContinueGoogle: () -> Unit = {},
+    onClickContinueFacebook: () -> Unit = {},
+) {
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         Column(
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.large),
@@ -38,9 +44,10 @@ fun WelcomeScreen() {
             Box(modifier = Modifier.weight(1f)) // TODO: Add something cooler than blank space
             WelcomeScreenInfo()
             EmailForm(
-                email = "",
-                onEmailChange = {},
-                onClickContinue = {},
+                email = state.email,
+                onEmailChange = { onEmailChange(it) },
+                onClickContinue = { onClickContinueEmail() },
+                enabledContinue = state.enabledContinue,
             )
             Text(
                 text = stringResource(id = R.string.welcome_screen_or),
@@ -50,16 +57,18 @@ fun WelcomeScreen() {
                 verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
             ) {
                 SocialButton(
-                    onClick = { /*TODO*/ },
+                    onClick = { onClickContinueGoogle() },
                     iconId = R.drawable.ic_google,
                     text = stringResource(id = R.string.btn_continue_with_google),
                     iconContentDescription = R.string.content_description_google,
+                    enabled = state.enabledGoogle,
                 )
                 SocialButton(
-                    onClick = { /*TODO*/ },
+                    onClick = { onClickContinueFacebook() },
                     iconId = R.drawable.ic_facebook,
                     text = stringResource(id = R.string.btn_continue_with_facebook),
                     iconContentDescription = R.string.content_description_facebook,
+                    enabled = state.enabledFacebook,
                 )
             }
         }
@@ -87,6 +96,7 @@ private fun EmailForm(
     email: String,
     onEmailChange: (String) -> Unit,
     onClickContinue: () -> Unit,
+    enabledContinue: Boolean,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
@@ -100,6 +110,7 @@ private fun EmailForm(
         Button(
             onClick = onClickContinue,
             modifier = Modifier.fillMaxWidth(),
+            enabled = enabledContinue,
         ) {
             Text(stringResource(id = R.string.btn_continue))
         }
@@ -112,10 +123,12 @@ private fun SocialButton(
     @DrawableRes iconId: Int,
     text: String,
     @StringRes iconContentDescription: Int,
+    enabled: Boolean,
 ) {
     OutlinedButton(
         onClick = onClick,
         modifier = Modifier.fillMaxWidth(),
+        enabled = enabled,
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
             Image(

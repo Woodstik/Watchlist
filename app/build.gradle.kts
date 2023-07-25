@@ -88,7 +88,6 @@ android {
 dependencies {
 
     implementation("androidx.core:core-ktx:1.10.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
 
     // Compose
     implementation("androidx.activity:activity-compose:1.7.2")
@@ -108,6 +107,10 @@ dependencies {
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.1.1"))
     implementation("com.google.firebase:firebase-analytics-ktx")
+
+    // LiveData and Lifecycle
+    implementation("androidx.compose.runtime:runtime-livedata:1.4.3")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
 
     // Navigation
     val navVersion = "2.6.0"

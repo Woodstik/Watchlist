@@ -1,4 +1,4 @@
-package com.example.watchlist
+package com.example.watchlist.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

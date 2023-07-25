@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Watchlist</string>
+
+    <!--BUTTONS-->
+    <string name="btn_continue">Continue</string>
+    <string name="btn_continue_with_google">Continue with Google</string>
+    <string name="btn_continue_with_facebook">Continue with Facebook</string>
+
+    <!--INPUT-->
+    <string name="input_placeholder_email">Email</string>
+
+    <!--CONTENT DESCRIPTION-->
+    <string name="content_description_google">Google Logo</string>
+    <string name="content_description_facebook">Facebook Logo</string>
+
+    <!--WELCOME-->
+    <string name="welcome_screen_title">Watchlist</string>
+    <string name="welcome_screen_message">Keep track of all the movies you want to watch</string>
+    <string name="welcome_screen_or">Or</string>
 </resources>

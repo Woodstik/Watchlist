@@ -101,16 +101,15 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
+    // Flows
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
+
     // Material
     implementation("com.google.android.material:material:1.9.0")
 
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.1.1"))
     implementation("com.google.firebase:firebase-analytics-ktx")
-
-    // LiveData and Lifecycle
-    implementation("androidx.compose.runtime:runtime-livedata:1.4.3")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
 
     // Navigation
     val navVersion = "2.6.0"

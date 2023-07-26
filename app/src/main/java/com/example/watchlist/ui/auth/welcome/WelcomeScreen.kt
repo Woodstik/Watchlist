@@ -29,6 +29,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.watchlist.R
+import com.example.watchlist.data.enums.EmailStatus
 import com.example.watchlist.ui.theme.WatchlistTheme
 import com.example.watchlist.ui.theme.spacing
 
@@ -49,7 +50,7 @@ fun WelcomeScreen(
             WelcomeScreenInfo()
             EmailForm(
                 email = state.email,
-                emailError = state.emailError,
+                emailStatus = state.emailStatus,
                 onEmailChange = { onEmailChange(it) },
                 onClickContinue = { onClickContinueEmail() },
                 enabledContinue = state.enabledContinue,
@@ -99,7 +100,7 @@ private fun WelcomeScreenInfo() {
 @Composable
 private fun EmailForm(
     email: String,
-    emailError: EmailError,
+    emailStatus: EmailStatus,
     onEmailChange: (String) -> Unit,
     onClickContinue: () -> Unit,
     enabledContinue: Boolean,
@@ -111,8 +112,8 @@ private fun EmailForm(
             value = email,
             label = { Text(stringResource(id = R.string.input_label_email)) },
             placeholder = { Text(stringResource(id = R.string.input_placeholder_email)) },
-            supportingText = { EmailErrorText(emailError) },
-            isError = emailError != EmailError.NONE,
+            supportingText = { EmailStatusText(emailStatus) },
+            isError = emailStatus == EmailStatus.INVALID,
             onValueChange = { onEmailChange(it) },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
@@ -157,10 +158,10 @@ private fun SocialButton(
 }
 
 @Composable
-private fun EmailErrorText(error: EmailError) {
-    when (error) {
-        EmailError.INVALID_EMAIL -> Text(stringResource(id = R.string.form_error_invalid_email))
-        EmailError.NONE -> Text("")
+private fun EmailStatusText(status: EmailStatus) {
+    when (status) {
+        EmailStatus.INVALID -> Text(stringResource(id = R.string.form_error_invalid_email))
+        else -> Text("")
     }
 }
 

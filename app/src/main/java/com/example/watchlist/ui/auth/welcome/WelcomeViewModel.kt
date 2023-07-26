@@ -14,15 +14,15 @@ class WelcomeViewModel @Inject constructor() : ViewModel() {
     val state: LiveData<WelcomeScreenState> = _state
 
     fun onEmailChange(newEmail: String) {
-        val error = getEmailError(newEmail.trim())
         _state.value = _state.value!!.copy(
             email = newEmail,
-            emailError = error,
-            enabledContinue = newEmail.isNotEmpty() && error == EmailError.NONE,
+            emailError = getEmailError(newEmail),
+            enabledContinue = isEmailComplete(newEmail),
         )
     }
 
     fun onClickContinueEmail() {
+        if (!isEmailComplete(_state.value!!.email)) return
     }
 
     fun onClickContinueGoogle() {
@@ -34,9 +34,13 @@ class WelcomeViewModel @Inject constructor() : ViewModel() {
     // TODO: Change this to a use case
     private fun getEmailError(email: String): EmailError {
         var error = EmailError.NONE
-        if (email.isNotEmpty() && !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (email.trim().isNotEmpty() && !Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches()) {
             error = EmailError.INVALID_EMAIL
         }
         return error
+    }
+
+    private fun isEmailComplete(email: String): Boolean {
+        return email.trim().isNotEmpty() && getEmailError(email) == EmailError.NONE
     }
 }

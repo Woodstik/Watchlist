@@ -79,7 +79,7 @@ fun WelcomeScreen(
 @Composable
 private fun WelcomeScreenInfo() {
     Column(
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.xSmall),
     ) {
         Text(
             text = stringResource(id = R.string.welcome_screen_title),
@@ -101,7 +101,7 @@ private fun EmailForm(
     enabledContinue: Boolean,
 ) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.xSmall),
     ) {
         OutlinedTextField(
             value = email,

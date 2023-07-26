@@ -18,8 +18,8 @@
     <string name="content_description_facebook">Facebook Logo</string>
 
     <!--WELCOME-->
-    <string name="welcome_screen_title">Watchlist</string>
-    <string name="welcome_screen_message">Keep track of all the movies you want to watch</string>
+    <string name="welcome_screen_title">Welcome to Watchlist</string>
+    <string name="welcome_screen_message">Keep track of all the movies you watch</string>
     <string name="welcome_screen_or">Or</string>
 
 </resources>

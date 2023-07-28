@@ -1,7 +1,7 @@
 package com.example.watchlist.domain
 
 import android.util.Patterns
-import com.example.watchlist.data.enums.EmailStatus
+import com.example.watchlist.data.enum.EmailStatus
 import javax.inject.Inject
 
 class CheckEmailValidUseCase @Inject constructor() {

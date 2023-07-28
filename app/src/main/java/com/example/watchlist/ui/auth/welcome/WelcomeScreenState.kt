@@ -11,6 +11,7 @@ data class WelcomeScreenState(
 data class EmailFormState(
     val email: String = "",
     val emailStatus: EmailStatus = EmailStatus.NONE,
+    val emailEnabled: Boolean = true,
     val enabledContinue: Boolean = false,
     val showContinueInProgress: Boolean = false,
 )

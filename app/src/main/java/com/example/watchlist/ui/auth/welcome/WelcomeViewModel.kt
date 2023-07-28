@@ -56,6 +56,7 @@ class WelcomeViewModel @Inject constructor(
             emailFormState = emailFormState.copy(
                 enabledContinue = state is SubmitState.Error,
                 showContinueInProgress = state is SubmitState.InProgress,
+                emailEnabled = state is SubmitState.Error,
             ),
         )
     }

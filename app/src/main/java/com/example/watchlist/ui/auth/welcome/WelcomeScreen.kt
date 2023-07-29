@@ -53,7 +53,11 @@ fun WelcomeScreen(
             Box(modifier = Modifier.weight(1f)) // TODO: Add something cooler than blank space
             WelcomeScreenInfo()
             EmailForm(
-                formState = state.emailFormState,
+                email = state.email,
+                emailStatus = state.emailStatus,
+                emailReadOnly = state.emailReadOnly,
+                showProgress = state.showSubmitEmailInProgress,
+                enableSubmit = state.enableSubmitEmail,
                 onEmailChange = { onEmailChange(it) },
                 onClickContinue = { onClickContinueEmail() },
             )
@@ -101,7 +105,11 @@ private fun WelcomeScreenInfo() {
 
 @Composable
 private fun EmailForm(
-    formState: EmailFormState,
+    email: String,
+    emailStatus: EmailStatus,
+    emailReadOnly: Boolean,
+    enableSubmit: Boolean,
+    showProgress: Boolean,
     onEmailChange: (String) -> Unit,
     onClickContinue: () -> Unit,
 ) {
@@ -110,15 +118,15 @@ private fun EmailForm(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.xSmall),
     ) {
         OutlinedTextField(
-            value = formState.email,
+            value = email,
             label = { Text(stringResource(id = R.string.input_label_email)) },
             placeholder = { Text(stringResource(id = R.string.input_placeholder_email)) },
-            supportingText = { EmailStatusText(formState.emailStatus) },
-            isError = formState.emailStatus == EmailStatus.INVALID,
+            supportingText = { EmailStatusText(emailStatus) },
+            isError = emailStatus == EmailStatus.INVALID,
             onValueChange = { onEmailChange(it) },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
-            readOnly = !formState.emailEnabled,
+            readOnly = emailReadOnly,
             keyboardActions = KeyboardActions {
                 onClickContinue()
                 focusManager.clearFocus()
@@ -128,7 +136,7 @@ private fun EmailForm(
                 keyboardType = KeyboardType.Email,
             ),
         )
-        if (formState.showContinueInProgress) {
+        if (showProgress) {
             CircularProgressIndicator(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
@@ -138,7 +146,7 @@ private fun EmailForm(
             Button(
                 onClick = onClickContinue,
                 modifier = Modifier.fillMaxWidth(),
-                enabled = formState.enabledContinue,
+                enabled = enableSubmit,
             ) {
                 Text(stringResource(id = R.string.btn_continue))
             }

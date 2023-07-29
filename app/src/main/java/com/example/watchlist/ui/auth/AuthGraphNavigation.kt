@@ -1,5 +1,6 @@
 package com.example.watchlist.ui.auth
 
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -17,6 +18,13 @@ fun NavGraphBuilder.authGraph(navController: NavController) {
         startDestination = ROUTE_WELCOME,
         route = AUTH_GRAPH_ROUTE_PATTERN,
     ) {
-        welcomeScreen()
+        welcomeScreen(
+            onGoToLogin = {
+                Toast.makeText(navController.context, "Go to Login!", Toast.LENGTH_SHORT).show()
+            },
+            onGoToSignUp = {
+                Toast.makeText(navController.context, "Go to Sign Up!", Toast.LENGTH_SHORT).show()
+            },
+        )
     }
 }

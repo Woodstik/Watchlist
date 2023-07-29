@@ -20,3 +20,8 @@ data class WelcomeScreenState(
     val showSubmitEmailInProgress: Boolean
         get() = submitEmailState is SubmitState.InProgress
 }
+
+sealed interface WelcomeNavDestination {
+    data class Login(val email: String) : WelcomeNavDestination
+    data class SignUp(val email: String) : WelcomeNavDestination
+}

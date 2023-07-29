@@ -3,6 +3,7 @@ package com.example.watchlist.ui.auth.welcome
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.watchlist.data.enum.EmailStatus
+import com.example.watchlist.data.model.SubmitState
 import com.example.watchlist.domain.CheckEmailValidUseCase
 import com.example.watchlist.domain.SubmitUserEmailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,6 +21,8 @@ class WelcomeViewModel @Inject constructor(
 
     private val _state = MutableStateFlow(WelcomeScreenState())
     val state: StateFlow<WelcomeScreenState> = _state
+    private val _navState = MutableStateFlow<WelcomeNavDestination?>(null)
+    val navState: StateFlow<WelcomeNavDestination?> = _navState
 
     fun onEmailChange(newEmail: String) {
         _state.value = _state.value.copy(
@@ -36,6 +39,9 @@ class WelcomeViewModel @Inject constructor(
                 _state.value = _state.value.copy(
                     submitEmailState = it,
                 )
+                if (it is SubmitState.Success) {
+                    _navState.value = WelcomeNavDestination.SignUp(_state.value.email)
+                }
             }
         }
     }
@@ -44,5 +50,9 @@ class WelcomeViewModel @Inject constructor(
     }
 
     fun onClickContinueFacebook() {
+    }
+
+    fun onNavigate() {
+        _navState.value = null
     }
 }

@@ -14,7 +14,7 @@ fun NavGraphBuilder.welcomeScreen() {
     composable(ROUTE_WELCOME) {
         val context = LocalContext.current
         val viewModel = hiltViewModel<WelcomeViewModel>()
-        val state by viewModel.state.collectAsStateWithLifecycle(WelcomeScreenState())
+        val state by viewModel.state.collectAsStateWithLifecycle()
         WelcomeScreen(
             state = state,
             onEmailChange = { viewModel.onEmailChange(it) },

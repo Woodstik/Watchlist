@@ -6,8 +6,8 @@ import com.example.watchlist.data.enum.EmailStatus
 import com.example.watchlist.domain.CheckEmailValidUseCase
 import com.example.watchlist.domain.SubmitUserEmailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,7 +19,7 @@ class WelcomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(WelcomeScreenState())
-    val state: Flow<WelcomeScreenState> = _state
+    val state: StateFlow<WelcomeScreenState> = _state
 
     fun onEmailChange(newEmail: String) {
         _state.value = _state.value.copy(

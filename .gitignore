@@ -19,3 +19,5 @@ keystore.properties
 app/google-services.json
 /keystores/release.jks
 /keystores/staging.jks
+
+*.apk

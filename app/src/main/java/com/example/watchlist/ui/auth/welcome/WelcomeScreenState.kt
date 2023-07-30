@@ -2,11 +2,12 @@ package com.example.watchlist.ui.auth.welcome
 
 import com.example.watchlist.data.enum.EmailStatus
 import com.example.watchlist.data.model.SubmitState
+import com.example.watchlist.data.response.SubmitUserEmailResponse
 
 data class WelcomeScreenState(
     val email: String = "",
     val emailStatus: EmailStatus = EmailStatus.NONE,
-    val submitEmailState: SubmitState<Boolean> = SubmitState.Idle,
+    val submitEmailState: SubmitState<SubmitUserEmailResponse> = SubmitState.Idle,
 ) {
     val enabledGoogle: Boolean
         get() = submitEmailState !is SubmitState.InProgress

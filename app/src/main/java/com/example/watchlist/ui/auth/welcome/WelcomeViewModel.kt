@@ -36,11 +36,12 @@ class WelcomeViewModel @Inject constructor(
         if (emailStatus != EmailStatus.VALID) return
         viewModelScope.launch {
             submitUserEmailUseCase(_state.value.email).collectLatest {
-                _state.value = _state.value.copy(
-                    submitEmailState = it,
-                )
+                _state.value = _state.value.copy(submitEmailState = it)
                 if (it is SubmitState.Success) {
-                    _navState.value = WelcomeNavDestination.SignUp(_state.value.email)
+                    _navState.value = when {
+                        it.data.hasAccount -> WelcomeNavDestination.Login(it.data.email)
+                        else -> WelcomeNavDestination.SignUp(it.data.email)
+                    }
                 }
             }
         }

@@ -36,6 +36,9 @@ import com.example.watchlist.ui.theme.spacing
 @Composable
 fun SignUpScreen(
     state: SignUpScreenState = SignUpScreenState(),
+    onNameChange: (String) -> Unit = {},
+    onPasswordChange: (String) -> Unit = {},
+    onClickSubmit: () -> Unit = {},
 ) {
     Scaffold(
         topBar = {
@@ -55,17 +58,17 @@ fun SignUpScreen(
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
             modifier = Modifier.padding(paddingValues),
         ) {
-            SignUpScreenInfo("")
+            SignUpScreenInfo(state.email)
             SignUpForm(
-                name = "",
+                name = state.name,
                 nameReadOnly = false,
-                password = "",
+                password = state.password,
                 passwordReadOnly = false,
-                enableSubmit = true,
+                enableSubmit = state.enableSubmit,
                 showProgress = false,
-                onNameChange = {},
-                onPasswordChange = {},
-                onClickSubmit = {},
+                onNameChange = onNameChange,
+                onPasswordChange = onPasswordChange,
+                onClickSubmit = onClickSubmit,
             )
         }
     }
@@ -83,7 +86,7 @@ private fun SignUpScreenInfo(
             style = MaterialTheme.typography.headlineLarge,
         )
         Text(
-            text = stringResource(id = R.string.sign_up_screen_message),
+            text = stringResource(id = R.string.sign_up_screen_message, email),
             style = MaterialTheme.typography.bodyMedium,
         )
     }

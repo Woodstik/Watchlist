@@ -29,6 +29,7 @@ fun NavGraphBuilder.signUpScreen() {
             state = screenState,
             onPasswordChange = { viewModel.onPasswordChange(it) },
             onNameChange = { viewModel.onNameChange(it) },
+            onClickSubmit = { viewModel.signUp() },
         )
     }
 }

@@ -15,10 +15,10 @@ data class SignUpScreenState(
             submitState !is SubmitState.InProgress
 
     val nameReadOnly: Boolean
-        get() = submitState !is SubmitState.InProgress
+        get() = submitState is SubmitState.InProgress
 
     val passwordReadOnly: Boolean
-        get() = submitState !is SubmitState.InProgress
+        get() = submitState is SubmitState.InProgress
 
     val showSubmitInProgress: Boolean
         get() = submitState is SubmitState.InProgress

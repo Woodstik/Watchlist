@@ -13,7 +13,7 @@ class SignUpUserUseCase @Inject constructor() {
     operator fun invoke(request: SignUpRequest): Flow<SubmitState<SignUpResponse>> {
         return flow {
             emit(SubmitState.InProgress)
-            delay(1000)
+            delay(5000)
             emit(
                 SubmitState.Success(
                     SignUpResponse(true),

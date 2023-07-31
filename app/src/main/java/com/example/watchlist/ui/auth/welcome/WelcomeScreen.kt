@@ -60,7 +60,7 @@ fun WelcomeScreen(
                 showProgress = state.showSubmitEmailInProgress,
                 enableSubmit = state.enableSubmitEmail,
                 onEmailChange = { onEmailChange(it) },
-                onClickContinue = { onClickContinueEmail() },
+                onClickSubmit = { onClickContinueEmail() },
             )
             Text(
                 text = stringResource(id = R.string.welcome_screen_or),
@@ -112,7 +112,7 @@ private fun EmailForm(
     enableSubmit: Boolean,
     showProgress: Boolean,
     onEmailChange: (String) -> Unit,
-    onClickContinue: () -> Unit,
+    onClickSubmit: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
     Column(
@@ -129,7 +129,7 @@ private fun EmailForm(
             singleLine = true,
             readOnly = emailReadOnly,
             keyboardActions = KeyboardActions {
-                onClickContinue()
+                onClickSubmit()
                 focusManager.clearFocus()
             },
             keyboardOptions = KeyboardOptions(
@@ -145,7 +145,7 @@ private fun EmailForm(
             )
         } else {
             Button(
-                onClick = onClickContinue,
+                onClick = onClickSubmit,
                 modifier = Modifier.fillMaxWidth(),
                 enabled = enableSubmit,
             ) {

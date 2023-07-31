@@ -12,7 +12,7 @@ class SubmitUserEmailUseCase @Inject constructor() {
     operator fun invoke(email: String): Flow<SubmitState<SubmitUserEmailResponse>> {
         return flow {
             emit(SubmitState.InProgress)
-            delay(5000)
+            delay(1000)
             emit(
                 SubmitState.Success(
                     SubmitUserEmailResponse(

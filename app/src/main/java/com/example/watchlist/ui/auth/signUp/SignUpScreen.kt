@@ -34,7 +34,9 @@ import com.example.watchlist.ui.theme.WatchlistTheme
 import com.example.watchlist.ui.theme.spacing
 
 @Composable
-fun SignUpScreen() {
+fun SignUpScreen(
+    state: SignUpScreenState = SignUpScreenState(),
+) {
     Scaffold(
         topBar = {
             TopAppBar(

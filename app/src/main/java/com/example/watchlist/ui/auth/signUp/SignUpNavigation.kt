@@ -1,6 +1,8 @@
 package com.example.watchlist.ui.auth.signUp
 
+import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
@@ -15,7 +17,10 @@ fun NavGraphBuilder.signUpScreen() {
         arguments = listOf(navArgument(ARG_EMAIL) { type = NavType.StringType }),
     ) {
         val viewModel = hiltViewModel<SignUpViewModel>()
-        SignUpScreen()
+        val screenState by viewModel.screenState.collectAsStateWithLifecycle()
+        SignUpScreen(
+            state = screenState,
+        )
     }
 }
 

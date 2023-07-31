@@ -14,6 +14,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -39,24 +40,28 @@ fun SignUpScreen(
     onNameChange: (String) -> Unit = {},
     onPasswordChange: (String) -> Unit = {},
     onClickSubmit: () -> Unit = {},
+    onClickBack: () -> Unit = {},
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {},
                 navigationIcon = {
-                    Icon(
-                        painterResource(id = R.drawable.ic_back),
-                        contentDescription = stringResource(id = R.string.content_description_back),
-                    )
+                    IconButton(onClick = { onClickBack() }) {
+                        Icon(
+                            painterResource(id = R.drawable.ic_back),
+                            contentDescription = stringResource(id = R.string.content_description_back),
+                        )
+                    }
                 },
             )
         },
-        modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium),
     ) { paddingValues ->
         Column(
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
-            modifier = Modifier.padding(paddingValues),
+            modifier = Modifier
+                .padding(paddingValues)
+                .padding(horizontal = MaterialTheme.spacing.medium),
         ) {
             SignUpScreenInfo(state.email)
             SignUpForm(

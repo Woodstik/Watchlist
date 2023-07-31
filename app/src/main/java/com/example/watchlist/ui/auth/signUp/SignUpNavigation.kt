@@ -18,7 +18,9 @@ internal class SignUpArgs(val email: String) {
         this(checkNotNull(savedStateHandle[ARG_EMAIL]) as String)
 }
 
-fun NavGraphBuilder.signUpScreen() {
+fun NavGraphBuilder.signUpScreen(
+    onGoBack: () -> Unit,
+) {
     composable(
         route = "$ROUTE_SIGN_UP/{$ARG_EMAIL}",
         arguments = listOf(navArgument(ARG_EMAIL) { type = NavType.StringType }),
@@ -30,6 +32,7 @@ fun NavGraphBuilder.signUpScreen() {
             onPasswordChange = { viewModel.onPasswordChange(it) },
             onNameChange = { viewModel.onNameChange(it) },
             onClickSubmit = { viewModel.signUp() },
+            onClickBack = { onGoBack() },
         )
     }
 }

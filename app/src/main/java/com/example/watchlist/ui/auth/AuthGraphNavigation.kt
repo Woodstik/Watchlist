@@ -26,6 +26,8 @@ fun NavGraphBuilder.authGraph(navController: NavController) {
             },
             onGoToSignUp = { navController.navigateToSignUp(it) },
         )
-        signUpScreen()
+        signUpScreen(
+            onGoBack = { navController.popBackStack() },
+        )
     }
 }

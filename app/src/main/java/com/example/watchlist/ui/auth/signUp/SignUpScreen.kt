@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -21,6 +23,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -29,6 +35,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.watchlist.R
 import com.example.watchlist.ui.theme.WatchlistTheme
@@ -49,7 +57,7 @@ fun SignUpScreen(
                 navigationIcon = {
                     IconButton(onClick = { onClickBack() }) {
                         Icon(
-                            painterResource(id = R.drawable.ic_back),
+                            Icons.Filled.ArrowBack,
                             contentDescription = stringResource(id = R.string.content_description_back),
                         )
                     }
@@ -113,6 +121,7 @@ private fun SignUpForm(
     Column(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
     ) {
+        var passwordVisible by rememberSaveable { mutableStateOf(false) }
         OutlinedTextField(
             value = name,
             label = { Text(stringResource(id = R.string.input_label_name)) },
@@ -131,6 +140,22 @@ private fun SignUpForm(
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             readOnly = passwordReadOnly,
+            visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+            trailingIcon = {
+                IconButton(onClick = { passwordVisible = passwordVisible.not() }) {
+                    val icon = if (passwordVisible) {
+                        painterResource(R.drawable.ic_show_password)
+                    } else {
+                        painterResource(R.drawable.ic_hide_password)
+                    }
+                    val contentDescription = if (passwordVisible) {
+                        stringResource(id = R.string.content_description_hide_password)
+                    } else {
+                        stringResource(id = R.string.content_description_show_password)
+                    }
+                    Icon(painter = icon, contentDescription = contentDescription)
+                }
+            },
             keyboardActions = KeyboardActions {
                 onClickSubmit()
                 focusManager.clearFocus()

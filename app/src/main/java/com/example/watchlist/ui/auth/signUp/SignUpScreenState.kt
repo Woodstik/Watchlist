@@ -19,4 +19,7 @@ data class SignUpScreenState(
 
     val passwordReadOnly: Boolean
         get() = submitState !is SubmitState.InProgress
+
+    val showSubmitInProgress: Boolean
+        get() = submitState is SubmitState.InProgress
 }

@@ -20,6 +20,7 @@
     <!--CONTENT DESCRIPTION-->
     <string name="content_description_google">Google Logo</string>
     <string name="content_description_facebook">Facebook Logo</string>
+    <string name="content_description_back">Go back</string>
 
     <!--WELCOME-->
     <string name="welcome_screen_title">Welcome to Watchlist</string>

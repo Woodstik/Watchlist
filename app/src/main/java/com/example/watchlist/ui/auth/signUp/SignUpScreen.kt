@@ -47,7 +47,7 @@ fun SignUpScreen(
                 navigationIcon = {
                     Icon(
                         painterResource(id = R.drawable.ic_back),
-                        contentDescription = null,
+                        contentDescription = stringResource(id = R.string.content_description_back),
                     )
                 },
             )
@@ -61,11 +61,11 @@ fun SignUpScreen(
             SignUpScreenInfo(state.email)
             SignUpForm(
                 name = state.name,
-                nameReadOnly = false,
+                nameReadOnly = state.nameReadOnly,
                 password = state.password,
-                passwordReadOnly = false,
+                passwordReadOnly = state.passwordReadOnly,
                 enableSubmit = state.enableSubmit,
-                showProgress = false,
+                showProgress = state.showSubmitInProgress,
                 onNameChange = onNameChange,
                 onPasswordChange = onPasswordChange,
                 onClickSubmit = onClickSubmit,

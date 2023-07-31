@@ -1,6 +1,7 @@
 package com.example.watchlist.ui.auth.welcome
 
 import android.widget.Toast
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -19,12 +20,14 @@ fun NavGraphBuilder.welcomeScreen(
         val viewModel = hiltViewModel<WelcomeViewModel>()
         val state by viewModel.state.collectAsStateWithLifecycle()
         val navState by viewModel.navState.collectAsStateWithLifecycle()
-        navState?.let {
-            when (it) {
-                is WelcomeNavDestination.Login -> onGoToLogin(it.email)
-                is WelcomeNavDestination.SignUp -> onGoToSignUp(it.email)
+        LaunchedEffect(navState) {
+            navState?.let {
+                when (it) {
+                    is WelcomeNavDestination.Login -> onGoToLogin(it.email)
+                    is WelcomeNavDestination.SignUp -> onGoToSignUp(it.email)
+                }
+                viewModel.onNavigate()
             }
-            viewModel.onNavigate()
         }
         WelcomeScreen(
             state = state,

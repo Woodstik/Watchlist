@@ -24,7 +24,7 @@ fun NavGraphBuilder.authGraph(navController: NavController) {
             onGoToLogin = {
                 Toast.makeText(navController.context, "Go to Login!", Toast.LENGTH_SHORT).show()
             },
-            onGoToSignUp = { navController.navigateToSignUp() },
+            onGoToSignUp = { navController.navigateToSignUp(it) },
         )
         signUpScreen()
     }

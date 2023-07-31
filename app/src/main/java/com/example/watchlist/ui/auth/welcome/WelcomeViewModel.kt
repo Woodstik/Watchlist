@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,10 +26,12 @@ class WelcomeViewModel @Inject constructor(
     val navState: StateFlow<WelcomeNavDestination?> = _navState
 
     fun onEmailChange(newEmail: String) {
-        _state.value = _state.value.copy(
-            email = newEmail,
-            emailStatus = checkEmailValidUseCase(newEmail),
-        )
+        _state.update { currentState ->
+            currentState.copy(
+                email = newEmail,
+                emailStatus = checkEmailValidUseCase(newEmail),
+            )
+        }
     }
 
     fun onClickContinueEmail() {
@@ -36,7 +39,7 @@ class WelcomeViewModel @Inject constructor(
         if (emailStatus != EmailStatus.VALID) return
         viewModelScope.launch {
             submitUserEmailUseCase(_state.value.email).collectLatest {
-                _state.value = _state.value.copy(submitEmailState = it)
+                _state.update { currentState -> currentState.copy(submitEmailState = it) }
                 if (it is SubmitState.Success) {
                     _navState.value = when {
                         it.data.hasAccount -> WelcomeNavDestination.Login(it.data.email)

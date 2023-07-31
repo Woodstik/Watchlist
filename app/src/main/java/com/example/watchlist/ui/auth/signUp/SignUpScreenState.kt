@@ -4,4 +4,8 @@ data class SignUpScreenState(
     val email: String = "",
     val name: String = "",
     val password: String = "",
-)
+) {
+
+    val enableSubmit: Boolean
+        get() = name.isNotEmpty() && password.isNotEmpty()
+}

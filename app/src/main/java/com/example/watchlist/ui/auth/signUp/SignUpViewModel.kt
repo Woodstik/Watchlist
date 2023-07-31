@@ -3,6 +3,7 @@ package com.example.watchlist.ui.auth.signUp
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.watchlist.data.model.SubmitState
 import com.example.watchlist.data.request.SignUpRequest
 import com.example.watchlist.domain.SignUpUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,6 +24,8 @@ class SignUpViewModel @Inject constructor(
 
     private val _screenState = MutableStateFlow(SignUpScreenState(email = args.email))
     val screenState = _screenState.asStateFlow()
+    private val _navState = MutableStateFlow<SignUpDestinations?>(null)
+    val navState = _navState.asStateFlow()
 
     fun onPasswordChange(password: String) {
         _screenState.update { it.copy(password = password) }
@@ -43,7 +46,15 @@ class SignUpViewModel @Inject constructor(
                 ),
             ).collectLatest {
                 _screenState.update { currentState -> currentState.copy(submitState = it) }
+                if (it is SubmitState.Success) {
+                    _navState.update { SignUpDestinations.VerifyEmail }
+                }
             }
         }
+    }
+
+    fun onNavigate() {
+        _screenState.update { it.copy(password = "") }
+        _navState.update { null }
     }
 }

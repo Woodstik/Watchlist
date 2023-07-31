@@ -28,6 +28,10 @@ fun NavGraphBuilder.authGraph(navController: NavController) {
         )
         signUpScreen(
             onGoBack = { navController.popBackStack() },
+            onGoToVerifyEmail = {
+                Toast.makeText(navController.context, "Go to Verify Email!", Toast.LENGTH_SHORT)
+                    .show()
+            },
         )
     }
 }

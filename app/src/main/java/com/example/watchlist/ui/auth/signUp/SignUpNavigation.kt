@@ -1,5 +1,6 @@
 package com.example.watchlist.ui.auth.signUp
 
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.SavedStateHandle
@@ -20,6 +21,7 @@ internal class SignUpArgs(val email: String) {
 
 fun NavGraphBuilder.signUpScreen(
     onGoBack: () -> Unit,
+    onGoToVerifyEmail: () -> Unit,
 ) {
     composable(
         route = "$ROUTE_SIGN_UP/{$ARG_EMAIL}",
@@ -27,6 +29,15 @@ fun NavGraphBuilder.signUpScreen(
     ) {
         val viewModel = hiltViewModel<SignUpViewModel>()
         val screenState by viewModel.screenState.collectAsStateWithLifecycle()
+        val navState by viewModel.navState.collectAsStateWithLifecycle()
+        LaunchedEffect(navState) {
+            navState?.let {
+                when (it) {
+                    is SignUpDestinations.VerifyEmail -> onGoToVerifyEmail()
+                }
+                viewModel.onNavigate()
+            }
+        }
         SignUpScreen(
             state = screenState,
             onPasswordChange = { viewModel.onPasswordChange(it) },

@@ -192,7 +192,7 @@ private fun SignUpForm(
     }
 }
 
-@Preview()
+@Preview
 @Composable
 private fun SignUpScreenDarkPreview() {
     WatchlistTheme(darkTheme = true) { SignUpScreen() }

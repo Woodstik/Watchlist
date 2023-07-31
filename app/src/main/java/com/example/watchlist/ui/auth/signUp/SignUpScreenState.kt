@@ -23,3 +23,7 @@ data class SignUpScreenState(
     val showSubmitInProgress: Boolean
         get() = submitState is SubmitState.InProgress
 }
+
+sealed interface SignUpDestinations {
+    object VerifyEmail : SignUpDestinations
+}

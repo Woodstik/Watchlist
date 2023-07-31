@@ -11,7 +11,7 @@
     <string name="input_label_email">Email</string>
     <string name="input_placeholder_email">email@example.com</string>
     <string name="input_label_name">Name</string>
-    <string name="input_placeholder_name">John Smith</string>
+    <string name="input_placeholder_name">Jane Smith</string>
     <string name="input_label_password">Password</string>
 
     <!--FORM ERROR-->

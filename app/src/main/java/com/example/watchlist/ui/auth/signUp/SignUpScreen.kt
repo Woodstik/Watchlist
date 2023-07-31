@@ -33,10 +33,14 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.watchlist.R
 import com.example.watchlist.ui.theme.WatchlistTheme
@@ -98,8 +102,13 @@ private fun SignUpScreenInfo(
             text = stringResource(id = R.string.sign_up_screen_title),
             style = MaterialTheme.typography.headlineLarge,
         )
+        val message = stringResource(id = R.string.sign_up_screen_message, email)
         Text(
-            text = stringResource(id = R.string.sign_up_screen_message, email),
+            text = buildAnnotatedString {
+                append(message.subSequence(0, message.indexOf(email)))
+                withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) { append(email) }
+                append(message.subSequence(message.indexOf(email) + email.length, message.length))
+            },
             style = MaterialTheme.typography.bodyMedium,
         )
     }

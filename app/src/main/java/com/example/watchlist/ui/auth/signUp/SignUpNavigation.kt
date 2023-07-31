@@ -1,5 +1,6 @@
 package com.example.watchlist.ui.auth.signUp
 
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
@@ -13,6 +14,7 @@ fun NavGraphBuilder.signUpScreen() {
         route = "$ROUTE_SIGN_UP/{$ARG_EMAIL}",
         arguments = listOf(navArgument(ARG_EMAIL) { type = NavType.StringType }),
     ) {
+        val viewModel = hiltViewModel<SignUpViewModel>()
         SignUpScreen()
     }
 }

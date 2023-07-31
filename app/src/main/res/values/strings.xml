@@ -5,10 +5,14 @@
     <string name="btn_continue">Continue</string>
     <string name="btn_continue_with_google">Continue with Google</string>
     <string name="btn_continue_with_facebook">Continue with Facebook</string>
+    <string name="btn_sign_up">Sign up</string>
 
     <!--INPUT-->
     <string name="input_label_email">Email</string>
     <string name="input_placeholder_email">email@example.com</string>
+    <string name="input_label_name">Name</string>
+    <string name="input_placeholder_name">John Smith</string>
+    <string name="input_label_password">Password</string>
 
     <!--FORM ERROR-->
     <string name="form_error_invalid_email">Please enter a valid email address</string>
@@ -22,4 +26,7 @@
     <string name="welcome_screen_message">Keep track of all the movies you watch</string>
     <string name="welcome_screen_or">Or</string>
 
+    <!--SIGN Up-->
+    <string name="sign_up_screen_title">Create an account</string>
+    <string name="sign_up_screen_message">Looks like you don\'t have an account. Let\'s create a new account for email@example.com</string>
 </resources>

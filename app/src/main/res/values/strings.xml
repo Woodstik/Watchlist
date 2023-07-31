@@ -28,5 +28,5 @@
 
     <!--SIGN Up-->
     <string name="sign_up_screen_title">Create an account</string>
-    <string name="sign_up_screen_message">Looks like you don\'t have an account. Let\'s create a new account for email@example.com</string>
+    <string name="sign_up_screen_message">Looks like you don\'t have an account. Let\'s create a new account for %s</string>
 </resources>

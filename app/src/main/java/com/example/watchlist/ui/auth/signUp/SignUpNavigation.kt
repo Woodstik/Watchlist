@@ -13,7 +13,7 @@ fun NavGraphBuilder.signUpScreen() {
         route = "$ROUTE_SIGN_UP/{$ARG_EMAIL}",
         arguments = listOf(navArgument(ARG_EMAIL) { type = NavType.StringType }),
     ) {
-        SignUpScreen(it.arguments!!.getString(ARG_EMAIL, ""))
+        SignUpScreen()
     }
 }
 

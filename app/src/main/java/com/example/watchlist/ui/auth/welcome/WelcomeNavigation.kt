@@ -18,7 +18,7 @@ fun NavGraphBuilder.welcomeScreen(
     composable(ROUTE_WELCOME) {
         val context = LocalContext.current
         val viewModel = hiltViewModel<WelcomeViewModel>()
-        val state by viewModel.state.collectAsStateWithLifecycle()
+        val state by viewModel.screenState.collectAsStateWithLifecycle()
         val navState by viewModel.navState.collectAsStateWithLifecycle()
         LaunchedEffect(navState) {
             navState?.let {

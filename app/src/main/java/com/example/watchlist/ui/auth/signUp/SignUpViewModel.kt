@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.watchlist.data.model.SubmitState
 import com.example.watchlist.data.request.SignUpRequest
+import com.example.watchlist.domain.CheckPasswordValidUseCase
 import com.example.watchlist.domain.SignUpUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,17 +19,28 @@ import javax.inject.Inject
 class SignUpViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val signUpUserUseCase: SignUpUserUseCase,
+    private val checkPasswordValidUseCase: CheckPasswordValidUseCase,
 ) : ViewModel() {
 
     private val args = SignUpArgs(savedStateHandle)
 
-    private val _screenState = MutableStateFlow(SignUpScreenState(email = args.email))
+    private val _screenState = MutableStateFlow(
+        SignUpScreenState(
+            email = args.email,
+            passwordRequirements = checkPasswordValidUseCase(""),
+        ),
+    )
     val screenState = _screenState.asStateFlow()
     private val _navState = MutableStateFlow<SignUpDestinations?>(null)
     val navState = _navState.asStateFlow()
 
     fun onPasswordChange(password: String) {
-        _screenState.update { it.copy(password = password) }
+        _screenState.update {
+            it.copy(
+                password = password,
+                passwordRequirements = checkPasswordValidUseCase(password),
+            )
+        }
     }
 
     fun onNameChange(name: String) {

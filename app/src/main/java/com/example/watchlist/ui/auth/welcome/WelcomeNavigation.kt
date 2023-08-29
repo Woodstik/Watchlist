@@ -12,7 +12,7 @@ import androidx.navigation.compose.composable
 
 const val ROUTE_WELCOME = "welcome"
 fun NavGraphBuilder.welcomeScreen(
-    onGoToLogin: (email: String) -> Unit,
+    onGoToLogin: (email: String, name: String) -> Unit,
     onGoToSignUp: (email: String) -> Unit,
 ) {
     composable(ROUTE_WELCOME) {
@@ -23,7 +23,7 @@ fun NavGraphBuilder.welcomeScreen(
         LaunchedEffect(navState) {
             navState?.let {
                 when (it) {
-                    is WelcomeNavDestination.Login -> onGoToLogin(it.email)
+                    is WelcomeNavDestination.Login -> onGoToLogin(it.email, it.name)
                     is WelcomeNavDestination.SignUp -> onGoToSignUp(it.email)
                 }
                 viewModel.onNavigate()

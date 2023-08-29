@@ -16,6 +16,11 @@
 
     <!--FORM ERROR-->
     <string name="form_error_invalid_email">Please enter a valid email address</string>
+    <string name="form_error_password_too_short">Minimum of %d characters</string>
+    <string name="form_error_password_requires_number">Contains at least 1 number</string>
+    <string name="form_error_password_requires_lowercase">Contains at least 1 lowercase letter</string>
+    <string name="form_error_password_requires_uppercase">Contains at least 1 uppercase letter</string>
+    <string name="form_error_password_requires_symbol">Contains at least 1 symbol (@#$!…)</string>
 
     <!--CONTENT DESCRIPTION-->
     <string name="content_description_google">Google Logo</string>

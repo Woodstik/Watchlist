@@ -33,7 +33,7 @@ fun NavGraphBuilder.signUpScreen(
         LaunchedEffect(navState) {
             navState?.let {
                 when (it) {
-                    is SignUpDestinations.VerifyEmail -> onGoToVerifyEmail()
+                    is SignUpDestination.VerifyEmail -> onGoToVerifyEmail()
                 }
                 viewModel.onNavigate()
             }

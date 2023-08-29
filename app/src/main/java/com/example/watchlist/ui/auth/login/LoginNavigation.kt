@@ -1,5 +1,6 @@
 package com.example.watchlist.ui.auth.login
 
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.SavedStateHandle
@@ -24,6 +25,8 @@ internal class LoginArgs(val email: String, val name: String) {
 
 fun NavGraphBuilder.loginScreen(
     onGoBack: () -> Unit,
+    onGoToHome: () -> Unit,
+    onGoToForgotPassword: () -> Unit,
 ) {
     composable(
         route = "$ROUTE_LOGIN/{$ARG_EMAIL}/{$ARG_NAME}",
@@ -34,6 +37,16 @@ fun NavGraphBuilder.loginScreen(
     ) {
         val viewModel = hiltViewModel<LoginViewModel>()
         val screenState by viewModel.screenState.collectAsStateWithLifecycle()
+        val navState by viewModel.navState.collectAsStateWithLifecycle()
+        LaunchedEffect(navState) {
+            navState?.let {
+                when (it) {
+                    LoginDestination.ForgotPassword -> onGoToForgotPassword()
+                    LoginDestination.Home -> onGoToHome()
+                }
+                viewModel.onNavigate()
+            }
+        }
         LoginScreen(
             state = screenState,
             onClickBack = { onGoBack() },

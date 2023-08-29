@@ -31,7 +31,7 @@ class SignUpViewModel @Inject constructor(
         ),
     )
     val screenState = _screenState.asStateFlow()
-    private val _navState = MutableStateFlow<SignUpDestinations?>(null)
+    private val _navState = MutableStateFlow<SignUpDestination?>(null)
     val navState = _navState.asStateFlow()
 
     fun onPasswordChange(password: String) {
@@ -59,7 +59,7 @@ class SignUpViewModel @Inject constructor(
             ).collectLatest {
                 _screenState.update { currentState -> currentState.copy(submitState = it) }
                 if (it is SubmitState.Success) {
-                    _navState.update { SignUpDestinations.VerifyEmail }
+                    _navState.update { SignUpDestination.VerifyEmail }
                 }
             }
         }

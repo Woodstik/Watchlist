@@ -1,12 +1,13 @@
 package com.example.watchlist.ui.auth.login
 
 import com.example.watchlist.data.model.SubmitState
+import com.example.watchlist.data.response.LoginResponse
 
 data class LoginScreenState(
     val name: String = "",
     val email: String = "",
     val password: String = "",
-    val submitState: SubmitState<Unit> = SubmitState.Idle,
+    val submitState: SubmitState<LoginResponse> = SubmitState.Idle,
 ) {
     val enableSubmit: Boolean
         get() = password.isNotEmpty() && submitState !is SubmitState.InProgress
@@ -19,4 +20,9 @@ data class LoginScreenState(
 
     val showSubmitInProgress: Boolean
         get() = submitState is SubmitState.InProgress
+}
+
+sealed interface LoginDestination {
+    object ForgotPassword : LoginDestination
+    object Home : LoginDestination
 }

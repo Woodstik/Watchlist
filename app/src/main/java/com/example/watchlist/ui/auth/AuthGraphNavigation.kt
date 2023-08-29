@@ -35,6 +35,14 @@ fun NavGraphBuilder.authGraph(navController: NavController) {
         )
         loginScreen(
             onGoBack = { navController.popBackStack() },
+            onGoToForgotPassword = {
+                Toast.makeText(navController.context, "Go to Forgot Password!", Toast.LENGTH_SHORT)
+                    .show()
+            },
+            onGoToHome = {
+                Toast.makeText(navController.context, "Go to Home!", Toast.LENGTH_SHORT)
+                    .show()
+            },
         )
     }
 }

@@ -16,7 +16,7 @@ class LoginViewModel @Inject constructor(
     private val args = LoginArgs(savedStateHandle)
 
     private val _screenState = MutableStateFlow(
-        LoginScreenState(name = args.name),
+        LoginScreenState(name = args.name, email = args.email),
     )
     val screenState = _screenState.asStateFlow()
 

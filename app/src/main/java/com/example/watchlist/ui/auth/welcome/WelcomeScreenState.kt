@@ -23,6 +23,6 @@ data class WelcomeScreenState(
 }
 
 sealed interface WelcomeNavDestination {
-    data class Login(val email: String) : WelcomeNavDestination
+    data class Login(val email: String, val name: String) : WelcomeNavDestination
     data class SignUp(val email: String) : WelcomeNavDestination
 }

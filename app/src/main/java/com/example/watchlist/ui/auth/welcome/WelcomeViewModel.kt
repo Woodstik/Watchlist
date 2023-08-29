@@ -42,7 +42,7 @@ class WelcomeViewModel @Inject constructor(
                 _screenState.update { currentState -> currentState.copy(submitEmailState = it) }
                 if (it is SubmitState.Success) {
                     _navState.value = when {
-                        it.data.hasAccount -> WelcomeNavDestination.Login(it.data.email)
+                        it.data.hasAccount -> WelcomeNavDestination.Login(it.data.email, it.data.name)
                         else -> WelcomeNavDestination.SignUp(it.data.email)
                     }
                 }

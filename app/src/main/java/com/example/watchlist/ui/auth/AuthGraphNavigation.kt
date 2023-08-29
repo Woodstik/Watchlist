@@ -5,6 +5,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.navigation
+import com.example.watchlist.ui.auth.login.loginScreen
+import com.example.watchlist.ui.auth.login.navigateToLogin
 import com.example.watchlist.ui.auth.signUp.navigateToSignUp
 import com.example.watchlist.ui.auth.signUp.signUpScreen
 import com.example.watchlist.ui.auth.welcome.ROUTE_WELCOME
@@ -21,15 +23,24 @@ fun NavGraphBuilder.authGraph(navController: NavController) {
         route = AUTH_GRAPH_ROUTE_PATTERN,
     ) {
         welcomeScreen(
-            onGoToLogin = {
-                Toast.makeText(navController.context, "Go to Login!", Toast.LENGTH_SHORT).show()
-            },
+            onGoToLogin = { email, name -> navController.navigateToLogin(email, name) },
             onGoToSignUp = { navController.navigateToSignUp(it) },
         )
         signUpScreen(
             onGoBack = { navController.popBackStack() },
             onGoToVerifyEmail = {
                 Toast.makeText(navController.context, "Go to Verify Email!", Toast.LENGTH_SHORT)
+                    .show()
+            },
+        )
+        loginScreen(
+            onGoBack = { navController.popBackStack() },
+            onGoToForgotPassword = {
+                Toast.makeText(navController.context, "Go to Forgot Password!", Toast.LENGTH_SHORT)
+                    .show()
+            },
+            onGoToHome = {
+                Toast.makeText(navController.context, "Go to Home!", Toast.LENGTH_SHORT)
                     .show()
             },
         )

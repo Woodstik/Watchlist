@@ -13,12 +13,13 @@ class SubmitUserEmailUseCase @Inject constructor() {
         return flow {
             emit(SubmitState.InProgress)
             delay(1000)
+            val isNewUser = email.contains("9")
             emit(
                 SubmitState.Success(
                     SubmitUserEmailResponse(
                         email = email,
-                        hasAccount = false,
-                        name = "Test User",
+                        hasAccount = !isNewUser,
+                        name = if (isNewUser) "" else "First Lastname",
                     ),
                 ),
             )

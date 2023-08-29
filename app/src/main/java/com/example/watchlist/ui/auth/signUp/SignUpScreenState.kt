@@ -26,6 +26,6 @@ data class SignUpScreenState(
         get() = submitState is SubmitState.InProgress
 }
 
-sealed interface SignUpDestinations {
-    object VerifyEmail : SignUpDestinations
+sealed interface SignUpDestination {
+    object VerifyEmail : SignUpDestination
 }

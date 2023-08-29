@@ -1,7 +1,9 @@
 package com.example.watchlist.ui.auth.login
 
+import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
@@ -31,7 +33,9 @@ fun NavGraphBuilder.loginScreen(
         ),
     ) {
         val viewModel = hiltViewModel<LoginViewModel>()
+        val screenState by viewModel.screenState.collectAsStateWithLifecycle()
         LoginScreen(
+            state = screenState,
             onClickBack = { onGoBack() },
             onClickSubmit = { viewModel.onClickSubmit() },
             onPasswordChange = { viewModel.onPasswordChange(it) },

@@ -4,24 +4,23 @@ package com.example.watchlist.ui.auth.signUp
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -43,6 +42,9 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.watchlist.R
+import com.example.watchlist.data.enum.PasswordRequirementCode
+import com.example.watchlist.data.model.PasswordRequirement
+import com.example.watchlist.ui.composable.Toolbar
 import com.example.watchlist.ui.theme.WatchlistTheme
 import com.example.watchlist.ui.theme.spacing
 
@@ -55,19 +57,7 @@ fun SignUpScreen(
     onClickBack: () -> Unit = {},
 ) {
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {},
-                navigationIcon = {
-                    IconButton(onClick = { onClickBack() }) {
-                        Icon(
-                            Icons.Filled.ArrowBack,
-                            contentDescription = stringResource(id = R.string.content_description_back),
-                        )
-                    }
-                },
-            )
-        },
+        topBar = { Toolbar(onClickBack = onClickBack) },
     ) { paddingValues ->
         Column(
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
@@ -80,6 +70,7 @@ fun SignUpScreen(
                 name = state.name,
                 nameReadOnly = state.nameReadOnly,
                 password = state.password,
+                passwordRequirements = state.passwordRequirements,
                 passwordReadOnly = state.passwordReadOnly,
                 enableSubmit = state.enableSubmit,
                 showProgress = state.showSubmitInProgress,
@@ -119,6 +110,7 @@ private fun SignUpForm(
     name: String,
     nameReadOnly: Boolean,
     password: String,
+    passwordRequirements: List<PasswordRequirement>,
     passwordReadOnly: Boolean,
     enableSubmit: Boolean,
     showProgress: Boolean,
@@ -174,6 +166,7 @@ private fun SignUpForm(
                 keyboardType = KeyboardType.Password,
             ),
         )
+        PasswordRequirements(requirements = passwordRequirements)
         if (showProgress) {
             CircularProgressIndicator(
                 modifier = Modifier
@@ -192,14 +185,77 @@ private fun SignUpForm(
     }
 }
 
+@Composable
+private fun PasswordRequirements(requirements: List<PasswordRequirement>) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.xSmall),
+    ) {
+        requirements.forEach { requirement ->
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.xSmall),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Icon(
+                    painterResource(
+                        if (requirement.passed) {
+                            R.drawable.ic_passed_requirement
+                        } else {
+                            R.drawable.ic_failed_requirement
+                        },
+                    ),
+                    contentDescription = null,
+                    tint = if (requirement.passed) {
+                        LocalContentColor.current
+                    } else {
+                        MaterialTheme.colorScheme.error
+                    },
+                )
+                PasswordRequirementText(requirement.code)
+            }
+        }
+    }
+}
+
+@Composable
+private fun PasswordRequirementText(code: PasswordRequirementCode) {
+    val text = when (code) {
+        PasswordRequirementCode.NUMBERS -> stringResource(id = R.string.form_error_password_requires_number)
+        PasswordRequirementCode.UPPERCASE -> stringResource(id = R.string.form_error_password_requires_uppercase)
+        PasswordRequirementCode.LOWERCASE -> stringResource(id = R.string.form_error_password_requires_lowercase)
+        PasswordRequirementCode.SYMBOL -> stringResource(id = R.string.form_error_password_requires_symbol)
+        PasswordRequirementCode.MIN_LENGTH -> stringResource(
+            id = R.string.form_error_password_too_short,
+            PasswordRequirement.MIN_LENGTH,
+        )
+    }
+    Text(
+        text,
+        style = MaterialTheme.typography.labelMedium,
+    )
+}
+
 @Preview
 @Composable
 private fun SignUpScreenDarkPreview() {
-    WatchlistTheme(darkTheme = true) { SignUpScreen() }
+    WatchlistTheme(darkTheme = true) {
+        SignUpScreen(
+            state = SignUpScreenState(
+                passwordRequirements = PasswordRequirementCode.values()
+                    .map { PasswordRequirement(it, true) },
+            ),
+        )
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun SignUpScreenLightPreview() {
-    WatchlistTheme { SignUpScreen() }
+    WatchlistTheme {
+        SignUpScreen(
+            state = SignUpScreenState(
+                passwordRequirements = PasswordRequirementCode.values()
+                    .map { PasswordRequirement(it) },
+            ),
+        )
+    }
 }

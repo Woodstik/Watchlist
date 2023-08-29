@@ -34,7 +34,7 @@ fun NavGraphBuilder.authGraph(navController: NavController) {
             },
         )
         loginScreen(
-            onGoBack = { navController.popBackStack() }
+            onGoBack = { navController.popBackStack() },
         )
     }
 }

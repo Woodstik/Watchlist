@@ -14,20 +14,20 @@ private const val ARG_NAME = "name"
 
 internal class LoginArgs(val email: String, val name: String) {
     constructor(savedStateHandle: SavedStateHandle) :
-            this(
-                checkNotNull(savedStateHandle[ARG_EMAIL]) as String,
-                checkNotNull(savedStateHandle[ARG_NAME]) as String
-            )
+        this(
+            checkNotNull(savedStateHandle[ARG_EMAIL]) as String,
+            checkNotNull(savedStateHandle[ARG_NAME]) as String,
+        )
 }
 
 fun NavGraphBuilder.loginScreen(
-    onGoBack: () -> Unit
+    onGoBack: () -> Unit,
 ) {
     composable(
         route = "$ROUTE_LOGIN/{$ARG_EMAIL}/{$ARG_NAME}",
         arguments = listOf(
             navArgument(ARG_EMAIL) { type = NavType.StringType },
-            navArgument(ARG_NAME) { type = NavType.StringType }
+            navArgument(ARG_NAME) { type = NavType.StringType },
         ),
     ) {
         val viewModel = hiltViewModel<LoginViewModel>()
@@ -35,7 +35,7 @@ fun NavGraphBuilder.loginScreen(
             onClickBack = { onGoBack() },
             onClickSubmit = { viewModel.onClickSubmit() },
             onPasswordChange = { viewModel.onPasswordChange(it) },
-            onClickForgotPassword = { viewModel.onClickForgotPassword() }
+            onClickForgotPassword = { viewModel.onClickForgotPassword() },
         )
     }
 }

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class SignUpUserUseCase @Inject constructor() {
+class SignUpUseCase @Inject constructor() {
 
     operator fun invoke(request: SignUpRequest): Flow<SubmitState<SignUpResponse>> {
         return flow {

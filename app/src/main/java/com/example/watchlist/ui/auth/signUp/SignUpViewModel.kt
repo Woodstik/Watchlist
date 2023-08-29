@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.watchlist.data.model.SubmitState
 import com.example.watchlist.data.request.SignUpRequest
 import com.example.watchlist.domain.CheckPasswordRequirementsUseCase
-import com.example.watchlist.domain.SignUpUserUseCase
+import com.example.watchlist.domain.SignUpUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val signUpUserUseCase: SignUpUserUseCase,
+    private val signUpUseCase: SignUpUseCase,
     private val checkPasswordRequirementsUseCase: CheckPasswordRequirementsUseCase,
 ) : ViewModel() {
 
@@ -50,7 +50,7 @@ class SignUpViewModel @Inject constructor(
     fun signUp() {
         viewModelScope.launch {
             val state = _screenState.value
-            signUpUserUseCase(
+            signUpUseCase(
                 SignUpRequest(
                     state.email,
                     state.name,

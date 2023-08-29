@@ -19,7 +19,7 @@ class SubmitUserEmailUseCase @Inject constructor() {
                     SubmitUserEmailResponse(
                         email = email,
                         hasAccount = !isNewUser,
-                        name = if(isNewUser) "" else "First Lastname",
+                        name = if (isNewUser) "" else "First Lastname",
                     ),
                 ),
             )

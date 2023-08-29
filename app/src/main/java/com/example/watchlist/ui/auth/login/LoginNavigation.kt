@@ -1,5 +1,6 @@
 package com.example.watchlist.ui.auth.login
 
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -29,8 +30,12 @@ fun NavGraphBuilder.loginScreen(
             navArgument(ARG_NAME) { type = NavType.StringType }
         ),
     ) {
+        val viewModel = hiltViewModel<LoginViewModel>()
         LoginScreen(
-            onClickBack = { onGoBack() }
+            onClickBack = { onGoBack() },
+            onClickSubmit = { viewModel.onClickSubmit() },
+            onPasswordChange = { viewModel.onPasswordChange(it) },
+            onClickForgotPassword = { viewModel.onClickForgotPassword() }
         )
     }
 }

@@ -5,21 +5,36 @@
     <string name="btn_continue">Continue</string>
     <string name="btn_continue_with_google">Continue with Google</string>
     <string name="btn_continue_with_facebook">Continue with Facebook</string>
+    <string name="btn_sign_up">Sign up</string>
 
     <!--INPUT-->
     <string name="input_label_email">Email</string>
     <string name="input_placeholder_email">email@example.com</string>
+    <string name="input_label_name">Name</string>
+    <string name="input_placeholder_name">Jane Smith</string>
+    <string name="input_label_password">Password</string>
 
     <!--FORM ERROR-->
     <string name="form_error_invalid_email">Please enter a valid email address</string>
+    <string name="form_error_password_too_short">Minimum of %d characters</string>
+    <string name="form_error_password_requires_number">Contains at least 1 number</string>
+    <string name="form_error_password_requires_lowercase">Contains at least 1 lowercase letter</string>
+    <string name="form_error_password_requires_uppercase">Contains at least 1 uppercase letter</string>
+    <string name="form_error_password_requires_symbol">Contains at least 1 symbol (@#$!…)</string>
 
     <!--CONTENT DESCRIPTION-->
     <string name="content_description_google">Google Logo</string>
     <string name="content_description_facebook">Facebook Logo</string>
+    <string name="content_description_back">Go back</string>
+    <string name="content_description_show_password">Show password</string>
+    <string name="content_description_hide_password">Hide password</string>
 
     <!--WELCOME-->
     <string name="welcome_screen_title">Welcome to Watchlist</string>
     <string name="welcome_screen_message">Keep track of all the movies you watch</string>
     <string name="welcome_screen_or">Or</string>
 
+    <!--SIGN Up-->
+    <string name="sign_up_screen_title">Create an account</string>
+    <string name="sign_up_screen_message">Looks like you don\'t have an account. Let\'s create a new account for %s</string>
 </resources>

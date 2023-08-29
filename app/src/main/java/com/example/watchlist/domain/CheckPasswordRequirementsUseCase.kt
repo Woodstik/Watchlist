@@ -4,8 +4,8 @@ import com.example.watchlist.data.enum.PasswordRequirementCode
 import com.example.watchlist.data.model.PasswordRequirement
 import javax.inject.Inject
 
-class CheckPasswordValidUseCase @Inject constructor() {
-    operator fun invoke(password: String): List<PasswordRequirement> {
+class CheckPasswordRequirementsUseCase @Inject constructor() {
+    operator fun invoke(password: String = ""): List<PasswordRequirement> {
         return PasswordRequirementCode.values().map { checkRequirement(password, it) }
     }
 

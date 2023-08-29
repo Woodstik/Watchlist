@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.watchlist.data.model.SubmitState
 import com.example.watchlist.data.request.SignUpRequest
-import com.example.watchlist.domain.CheckPasswordValidUseCase
+import com.example.watchlist.domain.CheckPasswordRequirementsUseCase
 import com.example.watchlist.domain.SignUpUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +19,7 @@ import javax.inject.Inject
 class SignUpViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val signUpUserUseCase: SignUpUserUseCase,
-    private val checkPasswordValidUseCase: CheckPasswordValidUseCase,
+    private val checkPasswordRequirementsUseCase: CheckPasswordRequirementsUseCase,
 ) : ViewModel() {
 
     private val args = SignUpArgs(savedStateHandle)
@@ -27,7 +27,7 @@ class SignUpViewModel @Inject constructor(
     private val _screenState = MutableStateFlow(
         SignUpScreenState(
             email = args.email,
-            passwordRequirements = checkPasswordValidUseCase(""),
+            passwordRequirements = checkPasswordRequirementsUseCase(),
         ),
     )
     val screenState = _screenState.asStateFlow()
@@ -38,7 +38,7 @@ class SignUpViewModel @Inject constructor(
         _screenState.update {
             it.copy(
                 password = password,
-                passwordRequirements = checkPasswordValidUseCase(password),
+                passwordRequirements = checkPasswordRequirementsUseCase(password),
             )
         }
     }

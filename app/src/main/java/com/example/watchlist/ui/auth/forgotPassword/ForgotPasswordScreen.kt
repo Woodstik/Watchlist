@@ -127,13 +127,15 @@ private fun ForgotPasswordForm(
                 enabled = enableSubmit,
             ) {
                 Text(
-                    when {
-                        sendEmailState is SendEmailState.Allowed && !sendEmailState.isRetry -> stringResource(R.string.btn_send_email)
-                        sendEmailState is SendEmailState.CoolDown -> stringResource(
-                            R.string.btn_resend_email_cool_down,
-                            sendEmailState.timeRemaining,
-                        )
-                        else -> stringResource(R.string.btn_resend_email)
+                    when (sendEmailState) {
+                        is SendEmailState.Allowed -> {
+                            if (sendEmailState.isRetry) {
+                                stringResource(R.string.btn_resend_email)
+                            } else {
+                                stringResource(R.string.btn_send_email)
+                            }
+                        }
+                        is SendEmailState.CoolDown -> stringResource(R.string.btn_resend_email_cool_down, sendEmailState.timeRemaining)
                     },
                 )
             }

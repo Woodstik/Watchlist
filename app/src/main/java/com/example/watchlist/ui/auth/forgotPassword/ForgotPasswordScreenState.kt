@@ -11,15 +11,15 @@ data class ForgotPasswordScreenState(
     val submitState: SubmitState<ForgotPasswordResponse> = SubmitState.Idle,
 ) {
     val emailReadOnly: Boolean
-        get() = submitState == SubmitState.InProgress
+        get() = submitState is SubmitState.InProgress
     val enableSubmit: Boolean
         get() = emailStatus == EmailStatus.VALID &&
             sendEmailState is SendEmailState.Allowed
     val showProgress: Boolean
-        get() = submitState == SubmitState.InProgress
+        get() = submitState is SubmitState.InProgress
 }
 
 sealed interface SendEmailState {
     data class Allowed(val isRetry: Boolean) : SendEmailState
-    data class CoolDown(val timeRemaining: String) : SendEmailState
+    data class CoolDown(val timeRemaining: String = "") : SendEmailState
 }

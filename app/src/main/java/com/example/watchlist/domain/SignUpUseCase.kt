@@ -16,7 +16,7 @@ class SignUpUseCase @Inject constructor() {
             delay(5000)
             emit(
                 SubmitState.Success(
-                    SignUpResponse(true),
+                    SignUpResponse(""),
                 ),
             )
         }

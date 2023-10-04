@@ -11,7 +11,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 
-const val ROUTE_SIGN_UP = "sign_up"
+private const val ROUTE_SIGN_UP = "sign_up"
 private const val ARG_EMAIL = "email"
 
 internal class SignUpArgs(val email: String) {

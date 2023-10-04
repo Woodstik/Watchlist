@@ -11,7 +11,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 
-const val ROUTE_LOGIN = "login"
+private const val ROUTE_LOGIN = "login"
 private const val ARG_EMAIL = "email"
 private const val ARG_NAME = "name"
 

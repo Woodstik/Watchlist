@@ -8,6 +8,9 @@
     <string name="btn_sign_up">Sign up</string>
     <string name="btn_login">Login</string>
     <string name="btn_forgot_password">Forgot your password?</string>
+    <string name="btn_resend_email">Resend email</string>
+    <string name="btn_send_email">Send email</string>
+    <string name="btn_resend_email_cool_down">Resend email - %s</string>
 
     <!--INPUT-->
     <string name="input_label_email">Email</string>
@@ -34,7 +37,7 @@
 
     <!--WELCOME-->
     <string name="welcome_screen_title">Welcome to Watchlist</string>
-    <string name="welcome_screen_message">Keep track of all the movies you watch</string>
+    <string name="welcome_screen_message">Discover and track all the movies you watch</string>
     <string name="welcome_screen_or">Or</string>
 
     <!--SIGN UP-->
@@ -43,4 +46,9 @@
 
     <!--LOGIN-->
     <string name="login_screen_title">Welcome back</string>
+
+    <!--FORGOT PASSWORD-->
+    <string name="forgot_password_screen_title">Forgot Password</string>
+    <string name="forgot_password_screen_message">Confirm your email so that we can send instructions to reset your password</string>
+
 </resources>

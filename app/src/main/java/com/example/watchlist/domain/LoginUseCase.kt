@@ -16,7 +16,7 @@ class LoginUseCase @Inject constructor() {
             delay(5000)
             emit(
                 SubmitState.Success(
-                    LoginResponse(""),
+                    LoginResponse("", true),
                 ),
             )
         }

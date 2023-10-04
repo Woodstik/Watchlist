@@ -3,6 +3,7 @@ package com.example.watchlist.ui.auth.login
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.watchlist.data.model.SubmitState
 import com.example.watchlist.data.request.LoginRequest
 import com.example.watchlist.domain.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -43,7 +44,13 @@ class LoginViewModel @Inject constructor(
                 ),
             ).collectLatest {
                 _screenState.update { currentState -> currentState.copy(submitState = it) }
-                _navState.update { LoginDestination.Home }
+                if (it is SubmitState.Success) {
+                    if (it.data.isEmailVerified) {
+                        _navState.update { LoginDestination.Home }
+                    } else {
+                        _navState.update { LoginDestination.VerifyEmail(_screenState.value.email) }
+                    }
+                }
             }
         }
     }

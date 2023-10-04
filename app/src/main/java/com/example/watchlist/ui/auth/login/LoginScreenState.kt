@@ -25,4 +25,5 @@ data class LoginScreenState(
 sealed interface LoginDestination {
     data class ForgotPassword(val email: String) : LoginDestination
     object Home : LoginDestination
+    data class VerifyEmail(val email: String) : LoginDestination
 }

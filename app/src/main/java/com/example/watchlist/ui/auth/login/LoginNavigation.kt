@@ -27,6 +27,7 @@ fun NavGraphBuilder.loginScreen(
     onGoBack: () -> Unit,
     onGoToHome: () -> Unit,
     onGoToForgotPassword: (email: String) -> Unit,
+    onGoToVerifyEmail: (email: String) -> Unit,
 ) {
     composable(
         route = "$ROUTE_LOGIN/{$ARG_EMAIL}/{$ARG_NAME}",
@@ -43,6 +44,7 @@ fun NavGraphBuilder.loginScreen(
                 when (it) {
                     is LoginDestination.ForgotPassword -> onGoToForgotPassword(it.email)
                     LoginDestination.Home -> onGoToHome()
+                    is LoginDestination.VerifyEmail -> onGoToVerifyEmail(it.email)
                 }
                 viewModel.onNavigate()
             }

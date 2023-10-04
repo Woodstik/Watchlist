@@ -36,6 +36,7 @@ fun NavGraphBuilder.authGraph(navController: NavController) {
             onGoBack = { navController.popBackStack() },
             onGoToForgotPassword = { navController.navigateToForgotPassword(it) },
             onGoToHome = { Toast.makeText(navController.context, "Go to Home!", Toast.LENGTH_SHORT).show() },
+            onGoToVerifyEmail = { Toast.makeText(navController.context, "Go to Verify Email!", Toast.LENGTH_SHORT).show() },
         )
         forgotPasswordScreen(
             onGoBack = { navController.popBackStack() },

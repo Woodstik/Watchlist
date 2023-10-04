@@ -26,7 +26,7 @@ internal class LoginArgs(val email: String, val name: String) {
 fun NavGraphBuilder.loginScreen(
     onGoBack: () -> Unit,
     onGoToHome: () -> Unit,
-    onGoToForgotPassword: () -> Unit,
+    onGoToForgotPassword: (email: String) -> Unit,
 ) {
     composable(
         route = "$ROUTE_LOGIN/{$ARG_EMAIL}/{$ARG_NAME}",
@@ -41,7 +41,7 @@ fun NavGraphBuilder.loginScreen(
         LaunchedEffect(navState) {
             navState?.let {
                 when (it) {
-                    LoginDestination.ForgotPassword -> onGoToForgotPassword()
+                    is LoginDestination.ForgotPassword -> onGoToForgotPassword(it.email)
                     LoginDestination.Home -> onGoToHome()
                 }
                 viewModel.onNavigate()

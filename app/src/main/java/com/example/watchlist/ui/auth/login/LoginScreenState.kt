@@ -23,6 +23,6 @@ data class LoginScreenState(
 }
 
 sealed interface LoginDestination {
-    object ForgotPassword : LoginDestination
+    data class ForgotPassword(val email: String) : LoginDestination
     object Home : LoginDestination
 }

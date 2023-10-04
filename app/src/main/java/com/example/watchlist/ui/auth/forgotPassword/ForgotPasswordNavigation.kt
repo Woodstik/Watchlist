@@ -19,7 +19,6 @@ internal class ForgotPasswordArgs(val email: String) {
 
 fun NavGraphBuilder.forgotPasswordScreen(
     onGoBack: () -> Unit,
-    onGoToVerifyEmail: () -> Unit,
 ) {
     composable(
         route = "$ROUTE_FORGOT_PASSWORD/{$ARG_EMAIL}",

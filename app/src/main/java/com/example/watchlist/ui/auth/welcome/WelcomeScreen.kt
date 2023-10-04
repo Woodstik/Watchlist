@@ -33,6 +33,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.watchlist.R
 import com.example.watchlist.data.enum.EmailStatus
+import com.example.watchlist.ui.components.EmailStatusText
 import com.example.watchlist.ui.theme.WatchlistTheme
 import com.example.watchlist.ui.theme.spacing
 
@@ -176,14 +177,6 @@ private fun SocialButton(
             )
             Text(text, modifier = Modifier.align(Alignment.Center))
         }
-    }
-}
-
-@Composable
-private fun EmailStatusText(status: EmailStatus) {
-    when (status) {
-        EmailStatus.INVALID -> Text(stringResource(id = R.string.form_error_invalid_email))
-        else -> Text("")
     }
 }
 

@@ -49,7 +49,7 @@ class LoginViewModel @Inject constructor(
     }
 
     fun onClickForgotPassword() {
-        _navState.update { LoginDestination.ForgotPassword }
+        _navState.update { LoginDestination.ForgotPassword(_screenState.value.email) }
     }
 
     fun onNavigate() {

@@ -27,7 +27,7 @@ class ForgotPasswordViewModel @Inject constructor(
 ) : ViewModel() {
 
     companion object {
-        private const val COOL_DOWN_TIME = 10
+        private const val COOL_DOWN_TIME = 45
     }
 
     private val args = ForgotPasswordArgs(savedStateHandle)

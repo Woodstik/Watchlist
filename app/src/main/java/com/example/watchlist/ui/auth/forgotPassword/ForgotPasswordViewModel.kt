@@ -16,4 +16,12 @@ class ForgotPasswordViewModel @Inject constructor(
 
     private val _screenState = MutableStateFlow(ForgotPasswordScreenState(email = args.email))
     val screenState = _screenState.asStateFlow()
+
+    fun onSubmit() {
+        TODO("Not yet implemented")
+    }
+
+    fun onEmailChange(newEmail: String) {
+        TODO("Not yet implemented")
+    }
 }

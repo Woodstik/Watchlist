@@ -28,6 +28,9 @@ fun NavGraphBuilder.forgotPasswordScreen(
         val screenState by viewModel.screenState.collectAsStateWithLifecycle()
         ForgotPasswordScreen(
             state = screenState,
+            onClickBack = onGoBack,
+            onClickSubmit = { viewModel.onSubmit() },
+            onEmailChange = { viewModel.onEmailChange(it) },
         )
     }
 }

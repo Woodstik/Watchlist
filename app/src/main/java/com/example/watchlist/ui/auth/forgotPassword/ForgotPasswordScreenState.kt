@@ -17,6 +17,8 @@ data class ForgotPasswordScreenState(
             sendEmailState is SendEmailState.Allowed
     val showProgress: Boolean
         get() = submitState is SubmitState.InProgress
+    val showEmailSent: Boolean
+        get() = submitState is SubmitState.Success
 }
 
 sealed interface SendEmailState {

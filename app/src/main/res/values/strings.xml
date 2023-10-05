@@ -50,5 +50,6 @@
     <!--FORGOT PASSWORD-->
     <string name="forgot_password_screen_title">Forgot Password</string>
     <string name="forgot_password_screen_message">Confirm your email so that we can send instructions to reset your password</string>
+    <string name="forgot_password_email_sent">Email sent!</string>
 
 </resources>

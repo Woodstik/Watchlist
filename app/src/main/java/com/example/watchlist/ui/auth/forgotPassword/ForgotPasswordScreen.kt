@@ -16,8 +16,13 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
@@ -31,6 +36,7 @@ import com.example.watchlist.ui.components.EmailStatusText
 import com.example.watchlist.ui.components.Toolbar
 import com.example.watchlist.ui.theme.WatchlistTheme
 import com.example.watchlist.ui.theme.spacing
+import kotlinx.coroutines.launch
 
 @Composable
 fun ForgotPasswordScreen(
@@ -39,8 +45,10 @@ fun ForgotPasswordScreen(
     onClickSubmit: () -> Unit = {},
     onClickBack: () -> Unit = {},
 ) {
+    val snackbarHostState = remember { SnackbarHostState() }
     Scaffold(
         topBar = { Toolbar(onClickBack = onClickBack) },
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
     ) { paddingValues ->
         Column(
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
@@ -48,6 +56,12 @@ fun ForgotPasswordScreen(
                 .padding(paddingValues)
                 .padding(horizontal = MaterialTheme.spacing.medium),
         ) {
+            val snackbarText = stringResource(id = R.string.forgot_password_email_sent)
+            LaunchedEffect(state.showEmailSent) {
+                if (state.showEmailSent) {
+                    launch { snackbarHostState.showSnackbar(snackbarText, duration = SnackbarDuration.Short) }
+                }
+            }
             ForgotPasswordScreenInfo()
             ForgotPasswordForm(
                 email = state.email,
@@ -135,6 +149,7 @@ private fun ForgotPasswordForm(
                                 stringResource(R.string.btn_send_email)
                             }
                         }
+
                         is SendEmailState.CoolDown -> stringResource(R.string.btn_resend_email_cool_down, sendEmailState.timeRemaining)
                     },
                 )

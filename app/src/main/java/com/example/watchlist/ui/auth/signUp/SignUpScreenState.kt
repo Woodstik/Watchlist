@@ -27,5 +27,5 @@ data class SignUpScreenState(
 }
 
 sealed interface SignUpDestination {
-    object VerifyEmail : SignUpDestination
+    data class VerifyEmail(val email: String) : SignUpDestination
 }

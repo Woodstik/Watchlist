@@ -1,4 +1,4 @@
-package com.example.watchlist.ui.auth.signUp
+package com.example.watchlist.ui.auth.verifyEmail
 
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -11,43 +11,40 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 
-private const val ROUTE_SIGN_UP = "sign_up"
+private const val ROUTE_VERIFY_EMAIL = "verify_email"
 private const val ARG_EMAIL = "email"
 
-internal class SignUpArgs(val email: String) {
+internal class VerifyEmailArgs(val email: String) {
     constructor(savedStateHandle: SavedStateHandle) :
         this(checkNotNull(savedStateHandle[ARG_EMAIL]) as String)
 }
 
-fun NavGraphBuilder.signUpScreen(
+fun NavGraphBuilder.verifyEmailScreen(
     onGoBack: () -> Unit,
-    onGoToVerifyEmail: (String) -> Unit,
+    onGoToHome: () -> Unit,
 ) {
     composable(
-        route = "$ROUTE_SIGN_UP/{$ARG_EMAIL}",
+        route = "$ROUTE_VERIFY_EMAIL/{$ARG_EMAIL}",
         arguments = listOf(navArgument(ARG_EMAIL) { type = NavType.StringType }),
     ) {
-        val viewModel = hiltViewModel<SignUpViewModel>()
+        val viewModel = hiltViewModel<VerifyEmailViewModel>()
         val screenState by viewModel.screenState.collectAsStateWithLifecycle()
         val navState by viewModel.navState.collectAsStateWithLifecycle()
         LaunchedEffect(navState) {
             navState?.let {
                 when (it) {
-                    is SignUpDestination.VerifyEmail -> onGoToVerifyEmail(it.email)
+                    is VerifyEmailDestination.Home -> onGoToHome()
                 }
                 viewModel.onNavigate()
             }
         }
-        SignUpScreen(
+        VerifyEmailScreen(
             state = screenState,
-            onPasswordChange = { viewModel.onPasswordChange(it) },
-            onNameChange = { viewModel.onNameChange(it) },
-            onClickSubmit = { viewModel.signUp() },
             onClickBack = { onGoBack() },
         )
     }
 }
 
-fun NavController.navigateToSignUp(email: String) {
-    navigate("$ROUTE_SIGN_UP/$email")
+fun NavController.navigateToVerifyEmail(email: String) {
+    navigate("$ROUTE_VERIFY_EMAIL/$email")
 }

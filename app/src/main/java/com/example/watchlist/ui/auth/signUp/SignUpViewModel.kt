@@ -24,23 +24,13 @@ class SignUpViewModel @Inject constructor(
 
     private val args = SignUpArgs(savedStateHandle)
 
-    private val _screenState = MutableStateFlow(
-        SignUpScreenState(
-            email = args.email,
-            passwordRequirements = checkPasswordRequirementsUseCase(),
-        ),
-    )
+    private val _screenState = MutableStateFlow(SignUpScreenState(email = args.email, passwordRequirements = checkPasswordRequirementsUseCase()))
     val screenState = _screenState.asStateFlow()
     private val _navState = MutableStateFlow<SignUpDestination?>(null)
     val navState = _navState.asStateFlow()
 
     fun onPasswordChange(password: String) {
-        _screenState.update {
-            it.copy(
-                password = password,
-                passwordRequirements = checkPasswordRequirementsUseCase(password),
-            )
-        }
+        _screenState.update { it.copy(password = password, passwordRequirements = checkPasswordRequirementsUseCase(password)) }
     }
 
     fun onNameChange(name: String) {
@@ -50,23 +40,17 @@ class SignUpViewModel @Inject constructor(
     fun signUp() {
         viewModelScope.launch {
             val state = _screenState.value
-            signUpUseCase(
-                SignUpRequest(
-                    state.email,
-                    state.name,
-                    state.password,
-                ),
-            ).collectLatest {
+            signUpUseCase(SignUpRequest(state.email, state.name, state.password)).collectLatest {
                 _screenState.update { currentState -> currentState.copy(submitState = it) }
                 if (it is SubmitState.Success) {
-                    _navState.update { SignUpDestination.VerifyEmail }
+                    _navState.update { SignUpDestination.VerifyEmail(state.email) }
                 }
             }
         }
     }
 
     fun onNavigate() {
-        _screenState.update { it.copy(password = "") }
+        _screenState.update { SignUpScreenState(email = args.email, passwordRequirements = checkPasswordRequirementsUseCase()) }
         _navState.update { null }
     }
 }

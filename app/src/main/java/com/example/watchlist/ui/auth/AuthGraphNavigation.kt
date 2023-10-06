@@ -11,6 +11,8 @@ import com.example.watchlist.ui.auth.login.loginScreen
 import com.example.watchlist.ui.auth.login.navigateToLogin
 import com.example.watchlist.ui.auth.signUp.navigateToSignUp
 import com.example.watchlist.ui.auth.signUp.signUpScreen
+import com.example.watchlist.ui.auth.verifyEmail.navigateToVerifyEmail
+import com.example.watchlist.ui.auth.verifyEmail.verifyEmailScreen
 import com.example.watchlist.ui.auth.welcome.ROUTE_WELCOME
 import com.example.watchlist.ui.auth.welcome.welcomeScreen
 
@@ -30,16 +32,20 @@ fun NavGraphBuilder.authGraph(navController: NavController) {
         )
         signUpScreen(
             onGoBack = { navController.popBackStack() },
-            onGoToVerifyEmail = { Toast.makeText(navController.context, "Go to Verify Email!", Toast.LENGTH_SHORT).show() },
+            onGoToVerifyEmail = { navController.navigateToVerifyEmail(it) },
         )
         loginScreen(
             onGoBack = { navController.popBackStack() },
             onGoToForgotPassword = { navController.navigateToForgotPassword(it) },
             onGoToHome = { Toast.makeText(navController.context, "Go to Home!", Toast.LENGTH_SHORT).show() },
-            onGoToVerifyEmail = { Toast.makeText(navController.context, "Go to Verify Email!", Toast.LENGTH_SHORT).show() },
+            onGoToVerifyEmail = { navController.navigateToVerifyEmail(it) },
         )
         forgotPasswordScreen(
             onGoBack = { navController.popBackStack() },
+        )
+        verifyEmailScreen(
+            onGoBack = { navController.popBackStack() },
+            onGoToHome = { Toast.makeText(navController.context, "Go to Home!", Toast.LENGTH_SHORT).show() },
         )
     }
 }
